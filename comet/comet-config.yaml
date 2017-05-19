@@ -1,0 +1,141 @@
+# When running daemonized, Comet writes a pid file in
+# /tmp/comet.pid by default. You can specify a custom pid file
+pid_file: /tmp/comet.pid
+
+# Sets the maximum number of CPUs that can be executing simultaneously.
+# This call will go away when the scheduler improves. By default the number of
+# logical CPUs is set.
+max_proc: 4
+
+# This is used by comet service profiling (pprof).
+# By default comet pprof listens for connections from local interfaces on 6971
+# port. It's not safty for listening internet IP addresses.
+pprof_bind:
+  - ip:
+    port: 10031
+
+# This is used by comet service get stat info by http.
+# By default comet pprof listens for connections from local interfaces on 6972
+# port. It's not safty for listening internet IP addresses.
+stat_bind:
+  - ip:
+    port: 10041
+
+log:
+  dir:
+  level:
+  bufsize:
+
+
+tcp:
+# By default comet listens for connections from all the network interfaces
+# available on the server on 8080 port. It is possible to listen to just one or
+# multiple interfaces using the "bind" configuration directive, followed by
+# one or more IP addresses and port.
+  bind:
+    - ip:
+      port: 10001
+    - ip:
+      port: 10002
+    - ip:
+      port: 10003
+
+  # SO_SNDBUF and SO_RCVBUF are options to adjust the normal buffer sizes
+  # allocated for output and input buffers, respectively.  The buffer size may
+  # be increased for high-volume connections, or may be decreased to limit the
+  # possible backlog of incoming data.  The system places an absolute limit on
+  # these values.
+  #
+  # Sets the maximum socket send buffer in bytes.  The kernel doubles
+  # this value (to allow space for bookkeeping overhead) when it is set using
+  # setsockopt(2). The default value is set by the
+  # /proc/sys/net/core/wmem_default file and the maximum allowed value is set by
+  # the /proc/sys/net/core/wmem_max file.  The minimum (doubled) value for this
+  # option is 2048.
+  sndbuf_size: 2048
+
+  # Sets the maximum socket receive buffer in bytes. The kernel doubles this
+  # value (to allow space for bookkeeping overhead) when it is set using
+  # setsockopt(2). The default value is set by the
+  # /proc/sys/net/core/rmem_default file, and the maximum allowed value is set by
+  # the /proc/sys/net/core/rmem_max file. The minimum (doubled) value
+  # for this option is 256.
+  rcvbuf_size: 256
+  keepalive: false
+  reader_num: 1024    # Sets the reader number, used in round-robin selection.
+  readbuf_num: 1024   # Sets the reader buffer instance.
+  readbuf_size: 512
+  writer_num: 1024    # Sets the writer number, used in round-robin selection.
+  writebuf_num: 1024  # Sets the writer buffer instance.
+  writebuf_size: 4096
+
+websocket:
+  # By default comet websocket listens for connections from all the network interfaces
+  # available on the server on 8090 port. It is possible to listen to just one or
+  # multiple interfaces using the "bind" configuration directive, followed by
+  # one or more IP addresses and port.
+  bind:
+    - ip:
+      port: 10010
+    - ip:
+      port: 10011
+
+  # wheather needs open tls or not
+  # if set true you must set the cert and private file configuration, default false
+  # tls_open false
+  # It is available if tls_open set true
+  tls_open: false
+  tls_bind:
+    - ip:
+      port: 10020
+    - ip:
+      port: 10021
+  # generate certificate command:
+  # openssl genrsa -out key.pem 2048
+  # openssl req -new -x509 -key key.pem -out cert.pem -days 3650
+  cert_file:      #cert.file ../source/cert.pem
+  private_file:   #private.file ../source/private.pem
+
+timer:
+  timer_num: 256    # timer instance
+  timer_size: 2048  # timer instance size
+
+proto:
+  handshake_timeout: 5  # Sets the deadline for init handshake.
+  write_timeout: 5      # Sets the deadline for future Write calls.
+  svr_proto: 80         # proto buffer num in one bucket for server send.
+  cli_proto: 5          # proto buffer num in one bucket for client send.
+
+zone:
+  zone_num: 256        # zone split N(num) instance from a big map into small map.
+  cache_size: 1024     # session cache num
+
+#[flash]
+# flash safe policy listen
+#policy.open true
+#policy.bind 0.0.0.0:843
+
+#[push]
+# comet service listen address
+#
+# Examples:
+#
+# rpc.addrs tcp@localhost:7170
+#rpc.addrs tcp@localhost:8092
+
+#[logic]
+# logic service rpc address
+# set(logic1, logic2)
+#
+# Examples:
+#
+# rpc.addrs tcp@localhost:7170,tcp@localhost:7170
+#rpc.addrs tcp@localhost:7170
+
+#[monitor]
+# monitor listen
+#open true
+#addrs 0.0.0.0:7371
+
+
+

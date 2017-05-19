@@ -1,0 +1,36 @@
+admin_addr:
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+
+public_addr:
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+
+pprof_addr:
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+  - ip:
+    port: 10001
+
+log:
+  dir: ./log
+  level: debug
+  buf_size: 1000
+
+etcd_addir:
+  ip: 127.0.0.1
+  port: 10040
+
+http_timout: 5
+max_proc: 8
+pid_file: ./web.pid
