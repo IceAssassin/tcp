@@ -12,4 +12,5 @@ func init() {
 	Handles = make([]Handle, proto.C2S_MAX, proto.C2S_MAX)
 	Handles[proto.C2S_RC] = handle_rc
 	Handles[proto.C2S_HEART_BEAT] = handle_heartbeat
+	Handles[proto.C2S_CALCULATE] = handle_calculate
 }

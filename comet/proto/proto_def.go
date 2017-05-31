@@ -9,6 +9,7 @@ const (
 	C2S_RC = iota
 	C2S_HEART_BEAT
 	C2S_AUTH
+	C2S_CALCULATE
 	C2S_MAX
 )
 
@@ -17,6 +18,7 @@ const (
 	S2C_RC         = S2C_BASE + C2S_RC
 	S2C_HEART_BEAT = S2C_BASE + C2S_HEART_BEAT
 	S2C_AUTH       = S2C_BASE + C2S_AUTH
+	S2C_CALCULATE  = S2C_BASE + C2S_CALCULATE
 	S2C_MAX
 )
 
@@ -34,4 +36,8 @@ type HeartBeat struct {
 type RC struct {
 	Uid  uint32 `json:"uid"`
 	Mid  uint64 `json:"mid"`
+}
+
+type Calculate struct {
+	Data []byte `json:"data"`
 }
